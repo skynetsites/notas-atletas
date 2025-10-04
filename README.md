@@ -22,13 +22,6 @@ Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Tril
 - JavaScript (ES6)
 - Chart.js (gráficos de barras)
 
-## Estrutura do projeto
-notas-atletas/
-├── index.html         # Interface do projeto
-├── notas-atletas.js   # Código JavaScript principal
-├── style.css          # (Opcional) estilos separados
-└── README.md          # Documentação
-
 ## Como executar
 
 ### 1. Clonando o repositório
@@ -47,11 +40,11 @@ Você verá a interface para adicionar, editar e remover atletas.
 - A tabela e o gráfico são atualizados automaticamente a cada modificação.
 - Os resultados também são exibidos no console usando `console.log()`.
 
-## 👨‍💻 Autor
+## Autor
 **Isaias Oliveira**
 
 📧 **E-mail:** [isaiaswebnet@gmail.com](mailto:isaiaswebnet@gmail.com)  
 💼 **LinkedIn:** [Meu LinkedIn](https://www.linkedin.com/in/skynetsites/)
 
-## ✨ Créditos
+## Créditos
 Desenvolvido como entrega do Projeto de certificação 1 - Pontuação dos atletas do curso **Jornada DEVStar CE do SENAI/SC**
