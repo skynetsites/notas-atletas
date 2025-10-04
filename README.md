@@ -44,7 +44,7 @@ Você verá a interface para adicionar, editar e remover atletas.
 **Isaias Oliveira**
 
 📧 **E-mail:** [isaiaswebnet@gmail.com](mailto:isaiaswebnet@gmail.com)  
-💼 **LinkedIn:** [Meu LinkedIn](https://www.linkedin.com/in/skynetsites/)
+💼 **LinkedIn:** [linkedin.com/in/skynetsites](https://www.linkedin.com/in/skynetsites/)
 
 ## Créditos
 Desenvolvido como entrega do Projeto de certificação 1 - Pontuação dos atletas do curso **Jornada DEVStar CE do SENAI/SC**
