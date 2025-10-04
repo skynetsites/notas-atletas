@@ -32,7 +32,7 @@ git clone https://github.com//skynetsites/notas-atletas.git
 cd notas-atletas
 ```
 
-### 2. Abra o arquivo index.html em qualquer navegador moderno (Chrome, Firefox, Edge, etc.).
+### 2. Abra o arquivo index.html em qualquer navegador moderno.
 Você verá a interface para adicionar, editar e remover atletas.
 
 ## Observações
