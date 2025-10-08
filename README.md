@@ -1,4 +1,4 @@
-# Projeto Notas de Atletas
+# Projeto de certificação 2 - Pontuação dos Atletas
 
 ## Descrição
 Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Trilha 1: Lógica de Programação** da Fase 8. Projetos avançados > 45. Projetos de certificação > Projeto de certificação 2 - Pontuação dos atletas.
