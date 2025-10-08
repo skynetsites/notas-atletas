@@ -1,12 +1,12 @@
 # Projeto Notas de Atletas
 
 ## Descrição
-Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Trilha 1: Lógica de Programação** da Fase 8. Projetos avançados > 45. Projetos de certificação > Projeto de certificação 1 - Pontuação dos atletas.
+Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Trilha 1: Lógica de Programação** da Fase 8. Projetos avançados > 45. Projetos de certificação > Projeto de certificação 2 - Pontuação dos atletas.
 
-É uma aplicação para competições de ginástica artística, onde é possível cadastrar atletas, registrar notas de cinco jurados, calcular a **média válida** (desconsiderando a maior e menor nota) e visualizar os resultados em tabela e gráfico.
+É uma aplicação para competições de ginástica artística, onde é possível cadastrar atletas, registrar notas de cinco jurados, calcular a **média válida** (desconsiderando a maior e menor nota) e visualizar os resultados em tabela e gráfico junto com o calculo do **IMC**.
 
 ## Funcionalidades implementadas
-- Cálculo da **média válida** automaticamente.
+- Cálculo da **média válida** e do **IMC** automaticamente.
 - **Tabela de atletas** exibindo notas e média.
 - **Gráfico de médias** usando Chart.js.
 - **Atletas padrão** já carregados ao iniciar.
