@@ -29,18 +29,57 @@ notas-atletas/
 ├── style.css          # (Opcional) estilos separados
 └── README.md          # Documentação
 
-## Como executar
+## 🚀 Como executar (Versão 1.0.1)
 
-### 1. Clonando o repositório
-Para ter uma cópia local do projeto, use o comando abaixo no terminal:
+Esta é a **branch versao-1.0.1** do projeto **Notas Atletas**, contendo a nova versão do site.
+
+---
+
+### 1. Clonando diretamente esta versão
+Para baixar **somente esta branch**, use:
 
 ```bash
-git clone https://github.com//skynetsites/notas-atletas.git
+git clone --branch versao-1.0.1 https://github.com/skynetsites/notas-atletas.git
 cd notas-atletas
 ```
 
-### 2. Abra o arquivo index.html em qualquer navegador moderno (Chrome, Firefox, Edge, etc.).
-Você verá a interface para adicionar, editar e remover atletas.
+> 💡 Se você já tiver o repositório clonado, basta trocar de branch:
+> ```bash
+> git fetch
+> git checkout versao-1.0.1
+> ```
+
+### 2. Executando o projeto localmente
+Como este site é estático (HTML, CSS, JS), não requer compilação.
+
+Você pode abrir o arquivo `index.html` diretamente no navegador  
+ou rodar um servidor local com:
+
+```bash
+npx serve
+```
+
+> Caso não tenha o **serve**, instale com:
+> ```bash
+> npm install -g serve
+> ```
+
+Depois acesse:
+```
+http://localhost:3000
+```
+
+### 3. Versão publicada
+A versão 1.0.1 também está disponível online em:
+
+👉 [https://skynetsites.github.io/notas-atletas/v1.0.1/](https://skynetsites.github.io/notas-atletas/v1.0.1/)
+
+
+### 4. Outras versões disponíveis
+- **main** → versão principal do projeto:  
+  [https://skynetsites.github.io/notas-atletas/](https://skynetsites.github.io/notas-atletas/)
+
+- **versao-1.0.1** → esta versão atual (branch de atualização e melhorias)
 
 ## Observações
 - A média válida é calculada considerando apenas as 3 notas do meio.

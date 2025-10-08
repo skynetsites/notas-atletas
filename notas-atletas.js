@@ -1,219 +1,359 @@
-function calcularMedia(atleta) {
-  let notasOrdenadas = atleta.notas.slice().sort((a, b) => a - b);
-  let notasParaMedia = notasOrdenadas.slice(1, 4);
-  let soma = notasParaMedia.reduce((acum, nota) => acum + nota, 0);
-  return soma / notasParaMedia.length;
+class Atleta {
+  constructor(nome, idade, peso, altura, notas) {
+    this.nome = nome;
+    this.idade = idade;
+    this.peso = peso;
+    this.altura = altura;
+    this.notas = notas;
+  }
+
+  calculaCategoria() {
+    if (this.idade >= 9 && this.idade <= 11) return "Infantil";
+    if (this.idade >= 12 && this.idade <= 13) return "Juvenil";
+    if (this.idade >= 14 && this.idade <= 15) return "Intermediário";
+    if (this.idade >= 16 && this.idade <= 30) return "Adulto";
+    return "Sem categoria";
+  }
+
+  calculaIMC() {
+    return +(this.peso / this.altura ** 2).toFixed(2);
+  }
+
+  calculaMediaValida() {
+    let notasOrdenadas = this.notas.slice().sort((a, b) => a - b);
+    let notasParaMedia =
+      notasOrdenadas.length >= 3 ? notasOrdenadas.slice(1, -1) : notasOrdenadas;
+    return +(
+      notasParaMedia.reduce((a, b) => a + b, 0) / notasParaMedia.length
+    ).toFixed(2);
+  }
+
+  obtemNomeAtleta() {
+    return this.nome;
+  }
+  obtemIdadeAtleta() {
+    return this.idade;
+  }
+  obtemPesoAtleta() {
+    return this.peso;
+  }
+  obtemAlturaAtleta() {
+    return this.altura;
+  }
+  obtemNotasAtleta() {
+    return this.notas;
+  }
+  obtemCategoria() {
+    return this.calculaCategoria();
+  }
+  obtemIMC() {
+    return this.calculaIMC();
+  }
+  obtemMediaValida() {
+    return this.calculaMediaValida();
+  }
 }
 
-let atletas = JSON.parse(localStorage.getItem("atletas")) || [
-  { nome: "Cesar Abascal", notas: [10, 9.34, 8.42, 10, 7.88] },
-  { nome: "Fernando Puntel", notas: [8, 10, 10, 7, 9.33] },
-  { nome: "Daiane Jelinsky", notas: [7, 10, 9.5, 9.5, 8] },
-  { nome: "Bruno Castro", notas: [10, 10, 10, 9, 9.5] },
+let atletas = JSON.parse(localStorage.getItem("atletas"))?.map(
+  (a) => new Atleta(a.nome, a.idade, a.peso, a.altura, a.notas)
+) || [
+  new Atleta("Cesar Abascal", 30, 80, 1.7, [10, 9.34, 8.42, 10, 7.88]),
+  new Atleta("Fernando Puntel", 25, 75, 1.8, [8, 10, 10, 7, 9.33]),
+  new Atleta("Daiane Jelinsky", 20, 60, 1.65, [7, 10, 9.5, 9.5, 8]),
+  new Atleta("Bruno Castro", 28, 85, 1.75, [10, 10, 10, 9, 9.5]),
 ];
 
 function salvarLocalStorage() {
+  //if (atletas.length === 0) {
+  //localStorage.removeItem("atletas");
+  //} else {
   localStorage.setItem("atletas", JSON.stringify(atletas));
+  //}
 }
 
 let indiceEditando = null;
 
+function ordenarAtletas() {
+  atletas.sort((a, b) => {
+    let mediaDiff = b.obtemMediaValida() - a.obtemMediaValida();
+    if (mediaDiff !== 0) return mediaDiff;
+    return a.obtemNomeAtleta().localeCompare(b.obtemNomeAtleta());
+  });
+}
+
+function exibirAtletaSelecionado(atleta) {
+  console.log("=== Atleta Selecionado ===");
+  console.log(`Nome: ${atleta.obtemNomeAtleta()}`);
+  console.log(`Idade: ${atleta.obtemIdadeAtleta()}`);
+  console.log(`Peso: ${atleta.obtemPesoAtleta()}`);
+  console.log(`Altura: ${atleta.obtemAlturaAtleta()}`);
+  console.log(`Notas: ${atleta.obtemNotasAtleta().join(", ")}`);
+  console.log(`Categoria: ${atleta.obtemCategoria()}`);
+  console.log(`IMC: ${atleta.obtemIMC()}`);
+  console.log(`Média Válida: ${atleta.obtemMediaValida()}`);
+}
+
 function exibirTabela() {
+  ordenarAtletas();
+
   let tbody = document.querySelector("#tabela-atletas tbody");
   tbody.innerHTML = "";
 
   if (atletas.length === 0) {
     let tr = document.createElement("tr");
-    tr.innerHTML = `<td colspan="4" style="text-align:center; font-style:italic;">Nenhum atleta cadastrado ainda.</td>`;
+    tr.innerHTML = `<td colspan="9" style="text-align:center; font-style:italic;">Nenhum atleta cadastrado ainda.</td>`;
     tbody.appendChild(tr);
     return;
   }
 
-  let atletasComMedia = atletas.map((a, idx) => ({
-    ...a,
-    media: calcularMedia(a),
-    idxOriginal: idx,
-  }));
+  let maiorMedia = Math.max(...atletas.map((a) => a.obtemMediaValida()));
+  let menorMedia = Math.min(...atletas.map((a) => a.obtemMediaValida()));
 
-  atletasComMedia.sort((a, b) => {
-    if (b.media !== a.media) return b.media - a.media;
-    return a.nome.localeCompare(b.nome);
-  });
+  console.log("=== Lista de Atletas ===");
 
-  let medias = atletasComMedia.map((a) => a.media);
-  let maiorMedia = Math.max(...medias);
-  let menorMedia = Math.min(...medias);
-
-  atletasComMedia.forEach((atleta, index) => {
+  atletas.forEach((atleta, idx) => {
     let tr = document.createElement("tr");
 
-    if (atleta.media === maiorMedia) tr.style.backgroundColor = "#c8e6c9";
-    if (atleta.media === menorMedia) tr.style.backgroundColor = "#ffcdd2";
+    if (atleta.obtemMediaValida() === maiorMedia)
+      tr.style.backgroundColor = "#c8e6c9";
+    if (atleta.obtemMediaValida() === menorMedia)
+      tr.style.backgroundColor = "#ffcdd2";
 
     tr.innerHTML = `
-      <td>${atleta.nome}</td>
-      <td>${atleta.notas.join(", ")}</td>
-      <td>${atleta.media.toFixed(2)}</td>
+      <td>${atleta.obtemNomeAtleta()}</td>
+      <td>${atleta.obtemIdadeAtleta()}</td>
+      <td>${atleta.obtemPesoAtleta()}</td>
+      <td>${atleta.obtemAlturaAtleta()}</td>
+      <td>${atleta.obtemNotasAtleta().join(", ")}</td>
+      <td>${atleta.obtemMediaValida()}</td>
+      <td>${atleta.obtemIMC()}</td>
+      <td>${atleta.obtemCategoria()}</td>
       <td>
         <div class="actions-btn">
-            <button class="edit-btn" data-index="${
-              atleta.idxOriginal
-            }"><i class="fas fa-pen"></i></button>
-            <button class="remove-btn" data-index="${
-              atleta.idxOriginal
-            }"><i class="fas fa-trash"></i></button>
+          <button class="edit-btn" data-index="${idx}"><i class="fas fa-pen"></i></button>
+          <button class="remove-btn" data-index="${idx}"><i class="fas fa-trash"></i></button>
         </div>
       </td>
     `;
     tbody.appendChild(tr);
 
-    console.log(`Atleta: ${atleta.nome}`);
-    console.log(`Notas Obtidas: ${atleta.notas.join(", ")}`);
-    console.log(`Média Válida: ${atleta.media.toFixed(2)}`);
-    console.log("-------------------------");
+    console.log(`Nome: ${atleta.obtemNomeAtleta()}`);
+    console.log(`Idade: ${atleta.obtemIdadeAtleta()}`);
+    console.log(`Peso: ${atleta.obtemPesoAtleta()}`);
+    console.log(`Altura: ${atleta.obtemAlturaAtleta()}`);
+    console.log(`Notas: ${atleta.obtemNotasAtleta().join(", ")}`);
+    console.log(`Categoria: ${atleta.obtemCategoria()}`);
+    console.log(`IMC: ${atleta.obtemIMC()}`);
+    console.log(`Média Válida: ${atleta.obtemMediaValida()}`);
+    console.log("---------------------------");
   });
 
   document.querySelectorAll(".remove-btn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      let idx = parseInt(this.dataset.index);
+    btn.onclick = () => {
+      let idx = parseInt(btn.dataset.index);
       atletas.splice(idx, 1);
       salvarLocalStorage();
       exibirTabela();
       atualizarGrafico();
-    });
+    };
   });
 
   document.querySelectorAll(".edit-btn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      let idx = parseInt(this.dataset.index);
+    btn.onclick = () => {
+      let idx = parseInt(btn.dataset.index);
       let atleta = atletas[idx];
-      document.querySelector("#nome").value = atleta.nome;
-      document.querySelector("#nota1").value = atleta.notas[0];
-      document.querySelector("#nota2").value = atleta.notas[1];
-      document.querySelector("#nota3").value = atleta.notas[2];
-      document.querySelector("#nota4").value = atleta.notas[3];
-      document.querySelector("#nota5").value = atleta.notas[4];
+      document.querySelector("#nome").value = atleta.obtemNomeAtleta();
+      document.querySelector("#idade").value = atleta.obtemIdadeAtleta();
+      document.querySelector("#peso").value = atleta.obtemPesoAtleta();
+      document.querySelector("#altura").value = atleta.obtemAlturaAtleta();
+      atleta
+        .obtemNotasAtleta()
+        .forEach((n, i) => (document.querySelector(`#nota${i + 1}`).value = n));
+
       indiceEditando = idx;
-    });
+
+      const campos = document.querySelectorAll("#form-atleta input");
+      campos.forEach((c) => c.classList.add("campo-editando"));
+      campos[0].focus();
+
+      setTimeout(() => {
+        campos.forEach((c) => c.classList.remove("campo-editando"));
+      }, 2000);
+
+      atualizarGraficoAtleta(atleta);
+      exibirAtletaSelecionado(atleta[0]);
+    };
+  });
+}
+
+function criarGrafico(canvasId, type, labels, datasets, title) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  if (window[canvasId] instanceof Chart) window[canvasId].destroy();
+
+  const limitedDatasets = datasets.slice(0, 4);
+
+  window[canvasId] = new Chart(ctx, {
+    type: type,
+    data: { labels, datasets: limitedDatasets },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMax: 4,
+          //min: 1,
+          //max: 4,
+          //ticks: { stepSize: 1 }
+        },
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: "top",
+          labels: {
+            padding: 10,
+            boxWidth: 30,
+            boxHeight: 15,
+          },
+        },
+        title: {
+          display: true,
+          text: title,
+        },
+      },
+    },
   });
 }
 
 function atualizarGrafico() {
-  let ctx = document.getElementById("graficoMedias").getContext("2d");
+  ordenarAtletas();
 
-  let atletasComMedia = atletas.map((a) => ({ ...a, media: calcularMedia(a) }));
-  atletasComMedia.sort((a, b) => {
-    if (b.media !== a.media) return b.media - a.media;
-    return a.nome.localeCompare(b.nome);
-  });
+  const type = "bar";
 
-  //let primeiroNome = atletasComMedia.map(a => a.nome.trim().split(" ")[0]);
-  let primeiroNome = atletasComMedia.map((a) => {
-    let partes = a.nome.trim().split(" ");
-    return partes.slice(0, 2).join(" ");
-  });
+  const semDados = atletas.length === 0;
+  const labels = semDados ? ["Sem média"] : ["Média"];
 
-  let medias = atletasComMedia.map((a) => a.media);
-
-  let maiorMedia = Math.max(...medias);
-  let menorMedia = Math.min(...medias);
-
-  let cores = medias.map((m) => {
-    if (m === maiorMedia) return "rgba(76,175,80,0.7)";
-    if (m === menorMedia) return "rgba(244,67,54,0.7)";
-    return "rgba(12,84,190,0.7)";
-  });
-  let bordas = cores.map((c) => c.replace("0.7", "1"));
-
-  if (window.grafico instanceof Chart) window.grafico.destroy();
-
-  window.grafico = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: primeiroNome,
-      datasets: [
+  const datasets = semDados
+    ? [
         {
-          label: "Média Válida",
-          data: medias,
-          backgroundColor: cores,
-          borderColor: bordas,
+          label: "Nenhum média disponível",
+          data: [0],
+          backgroundColor: ["rgba(12,84,190,0.2)"],
+          borderColor: ["rgba(12,84,190,0.4)"],
           borderWidth: 1,
         },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function (context) {
-              let i = context.dataIndex;
-              return `Notas: ${atletasComMedia[i].notas.join(
-                ", "
-              )} | Média: ${medias[i].toFixed(2)}`;
-            },
-          },
-        },
-      },
-      scales: {
-        y: { beginAtZero: true, max: 10 },
-        x: {
-          ticks: {
-            font: {
-              size: 10,
-            },
-          },
-        },
-      },
-    },
-  });
+      ]
+    : atletas.map((atleta, i) => {
+        const cores = [
+          "rgba(12,84,190,0.7)",
+          "rgba(76,175,80,0.7)",
+          "rgba(244,67,54,0.7)",
+          "rgba(244, 231, 54, 0.7)",
+        ];
+        const bordas = [
+          "rgba(12,84,190,1)",
+          "rgba(76,175,80,1)",
+          "rgba(244,67,54,1)",
+          "rgba(244, 231, 54, 1)",
+        ];
+        return {
+          label:
+            atleta.obtemNomeAtleta().split(" ")[0] +
+            `: ${atleta.obtemMediaValida()}`,
+          data: [atleta.obtemMediaValida()],
+          backgroundColor: cores[i % cores.length],
+          borderColor: bordas[i % bordas.length],
+          borderWidth: 1,
+        };
+      });
+
+  criarGrafico(
+    "graficoMedias",
+    type,
+    labels,
+    datasets,
+    semDados ? "Gráfico sem dados" : "Médias dos atletas"
+  );
 }
 
-const inputNome = document.querySelector("#nome");
+function atualizarGraficoAtleta(atleta) {
+  const type = "bar";
+
+  const semDados = atletas.length === 0;
+  const labels = semDados ? ["Sem desempenho"] : ["Desempenho"];
+
+  const datasets = semDados
+    ? [
+        {
+          label: "Nenhum desempenho disponível",
+          data: [0, 0],
+          backgroundColor: ["rgba(12,84,190,0.2)", "rgba(76,175,80,0.2)"],
+          borderColor: ["rgba(12,84,190,0.4)", "rgba(76,175,80,0.4)"],
+          borderWidth: 1,
+        },
+      ]
+    : [
+        {
+          label: `IMC: ${atleta.obtemIMC()}`,
+          data: [atleta.obtemIMC()],
+          backgroundColor: "rgba(12,84,190,0.7)",
+          borderColor: "rgba(12,84,190,1)",
+          borderWidth: 1,
+        },
+        {
+          label: `Média Válida: ${atleta.obtemMediaValida()}`,
+          data: [atleta.obtemMediaValida()],
+          backgroundColor: "rgba(76,175,80,0.7)",
+          borderColor: "rgba(76,175,80,1)",
+          borderWidth: 1,
+        },
+      ];
+
+  criarGrafico(
+    "graficoAtleta",
+    type,
+    labels,
+    datasets,
+    semDados ? "Gráfico sem dados" : `Desempenho de ${atleta.obtemNomeAtleta()}`
+  );
+}
+
 const form = document.querySelector("#form-atleta");
 
-inputNome.addEventListener("input", () => {
-  const valor = inputNome.value.trim();
-  if (valor.split(" ").filter((p) => p !== "").length < 2) {
-    inputNome.setCustomValidity("Informe pelo menos nome e sobrenome");
-  } else {
-    inputNome.setCustomValidity("");
-  }
-  inputNome.reportValidity();
-});
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const nome = document.querySelector("#nome").value;
+  const idade = parseInt(document.querySelector("#idade").value);
+  const peso = parseFloat(document.querySelector("#peso").value);
+  const altura = parseFloat(document.querySelector("#altura").value);
+  const notas = [1, 2, 3, 4, 5].map((i) =>
+    parseFloat(document.querySelector(`#nota${i}`).value)
+  );
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const nome = inputNome.value.trim();
-  const notas = [
-    parseFloat(document.querySelector("#nota1").value),
-    parseFloat(document.querySelector("#nota2").value),
-    parseFloat(document.querySelector("#nota3").value),
-    parseFloat(document.querySelector("#nota4").value),
-    parseFloat(document.querySelector("#nota5").value),
-  ];
-
-  if (nome.split(" ").filter((p) => p !== "").length < 2) {
-    inputNome.setCustomValidity("Informe pelo menos nome e sobrenome");
-    inputNome.reportValidity();
-    return;
-  } else {
-    inputNome.setCustomValidity("");
-  }
+  let atletaNovo = new Atleta(nome, idade, peso, altura, notas);
 
   if (indiceEditando !== null) {
-    atletas[indiceEditando] = { nome, notas };
+    atletas[indiceEditando] = atletaNovo;
     indiceEditando = null;
   } else {
-    atletas.push({ nome, notas });
+    atletas.push(atletaNovo);
   }
 
   salvarLocalStorage();
-  this.reset();
+  form.reset();
   exibirTabela();
   atualizarGrafico();
+  atualizarGraficoAtleta(atletaNovo);
 });
 
 exibirTabela();
 atualizarGrafico();
+atualizarGraficoAtleta(atletas[0]);
+
+if (atletas.length > 0) {
+  exibirAtletaSelecionado(atletas[0]);
+}

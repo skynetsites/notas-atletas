@@ -2,64 +2,76 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notas de Atletas</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto de Certificação 2: Pontuação dos Atletas</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+  <header>
+    <div class="header-container">
+      <h1>🏅 Pontuação dos Atletas</h1>
+      <p>Projeto de Certificação 2 / Curso DEVstart - Desenvolvedor Front-end - React / SESI SENAI/SC</p>
+    </div>
+  </header>
 
-    <header>
-        <div class="header-container">
-            <h1>🏅 Pontuação dos Atletas</h1>
-            <p>Projeto de Certificação 1 / Curso DEVstart - Desenvolvedor Front-end - React / SESI SENAI/SC</p>
-        </div>
-    </header>
-    <main>
+  <main>
+    <div class="form-container">
+      <form id="form-atleta">
+        <input type="text" id="nome" placeholder="Nome do atleta" required>
+        <input type="number" id="idade" placeholder="Idade" min="1" max="120" required>
+        <input type="number" id="peso" placeholder="Peso (kg)" min="1" max="300" step="0.1" required>
+        <input type="number" id="altura" placeholder="Altura (m)" min="0.5" max="2.5" step="0.01" required>
+        <input type="number" id="nota1" placeholder="Nota 1" min="0" max="10" step="0.01" required>
+        <input type="number" id="nota2" placeholder="Nota 2" min="0" max="10" step="0.01" required>
+        <input type="number" id="nota3" placeholder="Nota 3" min="0" max="10" step="0.01" required>
+        <input type="number" id="nota4" placeholder="Nota 4" min="0" max="10" step="0.01" required>
+        <input type="number" id="nota5" placeholder="Nota 5" min="0" max="10" step="0.01" required>
+        <button type="submit">Adicionar/Atualizar Atleta</button>
+      </form>
+    </div>
 
-        <div class="form-container">
-            <form id="form-atleta">
-                <input type="text" id="nome" placeholder="Nome do atleta" required>
-                <input type="number" id="nota1" placeholder="Nota 1" min="0" max="10" step="0.01" required>
-                <input type="number" id="nota2" placeholder="Nota 2" min="0" max="10" step="0.01" required>
-                <input type="number" id="nota3" placeholder="Nota 3" min="0" max="10" step="0.01" required>
-                <input type="number" id="nota4" placeholder="Nota 4" min="0" max="10" step="0.01" required>
-                <input type="number" id="nota5" placeholder="Nota 5" min="0" max="10" step="0.01" required>
-                <button type="submit">Adicionar/Atualizar Atleta</button>
-            </form>
-        </div>
+    <div class="tabela-container">
+      <h3>Tabela de Atletas</h3>
+      <table id="tabela-atletas">
+        <thead>
+          <tr>
+            <th>Atleta</th>
+            <th>Idade</th>
+            <th>Peso</th>
+            <th>Altura</th>
+            <th>Notas</th>
+            <th>Média Válida</th>
+            <th>IMC</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-        <div class="container">
-            <div class="tabela-container">
-                <h3>Tabela de Atletas</h3>
-                <table id="tabela-atletas">
-                    <thead>
-                        <tr>
-                            <th>Atleta</th>
-                            <th>Notas</th>
-                            <th>Média Válida</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+    <div class="grafico-container">
+      <div class="grafico-medias">
+        <h3>Gráfico de Médias</h3>
+        <canvas id="graficoMedias" width="400" height="200"></canvas>
+      </div>
+      <div class="grafico-atleta-selecionado">
+        <h3>Gráfico do Atleta Selecionado</h3>
+        <canvas id="graficoAtleta" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </main>
 
-            <div class="grafico-container">
-                <h3>Gráfico de Médias</h3>
-                <canvas id="graficoMedias" width="400" height="200"></canvas>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>Curso DEVstart - Desenvolvedor Front-end - React | Trilha 1: Lógica de Programação | Fase 8: Projetos
-            avançados | Projeto 1: Pontuação dos atletas</p>
-    </footer>
+  <footer>
+    <p>Curso DEVstart - Desenvolvedor Front-end - React | Trilha 1: Lógica de Programação | Fase 8: Projetos avançados |
+      Projeto de Certificação 2: Dados dos atletas</p>
+  </footer>
 
-    <script type="text/javascript" src="notas-atletas.js"></script>
+  <script src="notas-atletas.js"></script>
 </body>
 
 </html>
