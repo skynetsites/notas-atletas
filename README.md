@@ -22,13 +22,6 @@ Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Tril
 - JavaScript (ES6)
 - Chart.js (gráficos de barras)
 
-## Estrutura do projeto
-notas-atletas/
-├── index.html         # Interface do projeto
-├── notas-atletas.js   # Código JavaScript principal
-├── style.css          # (Opcional) estilos separados
-└── README.md          # Documentação
-
 ## 🚀 Como executar (Versão 1.0.1)
 
 Esta é a **branch versao-1.0.1** do projeto **Notas Atletas**, contendo a nova versão do site.
