@@ -24,22 +24,20 @@ Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Tril
 
 ## 🚀 Como executar (Versão 1.0.1)
 
-Esta é a **branch versao-1.0.1** do projeto **Notas Atletas**, contendo a nova versão do site.
-
----
+Esta é a **branch 1.0.1** do projeto **Notas Atletas**, contendo a nova versão do site.
 
 ### 1. Clonando diretamente esta versão
 Para baixar **somente esta branch**, use:
 
 ```bash
-git clone --branch versao-1.0.1 https://github.com/skynetsites/notas-atletas.git
+git clone --branch 1.0.1 https://github.com/skynetsites/notas-atletas.git
 cd notas-atletas
 ```
 
 > 💡 Se você já tiver o repositório clonado, basta trocar de branch:
 > ```bash
 > git fetch
-> git checkout versao-1.0.1
+> git checkout 1.0.1
 > ```
 
 ### 2. Executando o projeto localmente
@@ -65,14 +63,14 @@ http://localhost:3000
 ### 3. Versão publicada
 A versão 1.0.1 também está disponível online em:
 
-👉 [https://skynetsites.github.io/notas-atletas/v1.0.1/](https://skynetsites.github.io/notas-atletas/v1.0.1/)
+👉 [https://skynetsites.github.io/notas-atletas/1.0.1/](https://skynetsites.github.io/notas-atletas/1.0.1/)
 
 
 ### 4. Outras versões disponíveis
 - **main** → versão principal do projeto:  
   [https://skynetsites.github.io/notas-atletas/](https://skynetsites.github.io/notas-atletas/)
 
-- **versao-1.0.1** → esta versão atual (branch de atualização e melhorias)
+- **1.0.1** → esta versão atual (branch de atualização e melhorias)
 
 ## Observações
 - A média válida é calculada considerando apenas as 3 notas do meio.
