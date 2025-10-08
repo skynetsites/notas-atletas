@@ -22,7 +22,7 @@ Este projeto faz parte do teste do curso **Jornada DEVStar CE do SENAI/SC - Tril
 - JavaScript (ES6)
 - Chart.js (gráficos de barras)
 
-## 🚀 Como executar (Versão 1.0.1)
+## Como executar (Versão 1.0.1)
 
 Esta é a **branch 1.0.1** do projeto **Notas Atletas**, contendo a nova versão do site.
 
